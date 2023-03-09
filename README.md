@@ -1,3 +1,4 @@
-# vite-demo-observable-store
+# React + Vite
 
 Pokemon list
+demo-observable-store

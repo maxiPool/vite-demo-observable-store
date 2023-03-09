@@ -1,0 +1,54 @@
+{
+  "name": "vite-demo-observable-store",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "observable-hooks": "^4.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rxjs": "^7.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react": "^3.1.0",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.4",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "plugin:prettier/recommended"
+    ],
+    "env": {
+      "browser": true,
+      "es6": true
+    },
+    "plugins": [
+      "import"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2021,
+      "sourceType": "module"
+    },
+    "rules": {
+      "no-console": "off",
+      "no-eval": "error",
+      "import/first": "error"
+    }
+  },
+  "prettier": {
+    "printWidth": 120,
+    "tabWidth": 2,
+    "trailingComma": "es5"
+  }
+}

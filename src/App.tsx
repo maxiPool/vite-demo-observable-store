@@ -1,9 +1,10 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import "./App.css";
 import { useObservableState } from "observable-hooks";
 import { BehaviorSubject, combineLatestWith, map } from "rxjs";
 
 import { pokemon$, selected$, deck$ } from "./store/store";
+import store from "./store/store2";
 
 const Deck = () => {
   // const { deck$ } = usePokemon();
@@ -71,20 +72,63 @@ const Search = () => {
   );
 };
 
+// const useStore = (selector = (state: any) => state) =>
+//   useSyncExternalStore(store.subscribe, () => selector(store.getState()));
+
+const useStore = (selector = (state: any) => state) => {
+  const [state, setState] = useState(selector(store.getState()));
+  // @ts-ignore
+  useEffect(() => store.subscribe((state) => setState(selector(state))), []);
+  return state;
+};
+
+const DisplayValue = ({ item }: any) => (
+  <div>
+    {item}: {useStore((state) => state[item])}
+  </div>
+);
+
+const IncrementValue = ({ item }: any) => (
+  <button
+    onClick={() => {
+      const state = store.getState();
+      store.setState({
+        ...state,
+        [item]: state[item] + 1,
+      });
+    }}
+  >
+    Increment {item}
+  </button>
+);
+
 function App() {
   return (
-    // @ts-ignore
-    // <PokemonProvider>
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-      }}
-    >
-      <Search />
-      <Deck />
+    <div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          maxWidth: 600,
+          gap: "1rem",
+        }}
+      >
+        <IncrementValue item="value1" />
+        <DisplayValue item="value1" />
+        <IncrementValue item="value2" />
+        <DisplayValue item="value2" />
+      </div>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+        }}
+      >
+        <Search />
+        <Deck />
+      </div>
     </div>
-    // </PokemonProvider>
   );
 }
 
